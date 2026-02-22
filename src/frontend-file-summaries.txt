@@ -1,0 +1,17 @@
+{
+  "frontend/src/App.tsx": "Main application component that sets up TanStack Router with three routes (home, room detail, add listing) wrapped in a Layout component with navigation and footer.",
+  "frontend/src/components/Layout.tsx": "Layout wrapper component that provides consistent structure with Navigation header, main content area, and footer with attribution link across all pages.",
+  "frontend/src/components/Navigation.tsx": "Sticky header navigation with logo, app title \"Bachelor Room Finder\", navigation buttons, and conditional PWA install button",
+  "frontend/src/components/RoomCard.tsx": "Reusable card component displaying room preview with image, title, location, rent amount, room type badge, and view details button.",
+  "frontend/src/pages/HomePage.tsx": "Homepage that fetches and displays all available rooms in a responsive grid layout with loading states and empty state messaging.",
+  "frontend/src/pages/RoomDetailPage.tsx": "Detailed room view page showing full information including large image, amenities list, contact details, and rental information in a two-column layout.",
+  "frontend/src/pages/AddListingPage.tsx": "Form page for adding new room listings with validation, amenity checkboxes, room type selection, and success confirmation screen.",
+  "frontend/src/hooks/useQueries.ts": "Custom React Query hooks for fetching available rooms, all rooms, and adding new room listings with automatic cache invalidation and toast notifications.",
+  "frontend/src/index.css": "Global styles with warm, welcoming OKLCH color system featuring terracotta primary, warm beige backgrounds, and soft sage secondary colors for both light and dark modes.",
+  "frontend/tailwind.config.js": "Tailwind configuration extended with warm color palette, custom fonts (Inter, Poppins), varied border radii, and warm shadow utilities for cohesive design system.",
+  "frontend/index.html": "HTML entry point with PWA meta tags, manifest link, theme color, and updated app title to \"Bachelor Room Finder\"",
+  "frontend/public/manifest.json": "PWA manifest file with app metadata, icons, theme colors, and standalone display mode configuration",
+  "frontend/public/service-worker.js": "Service worker implementing cache-first strategy for static assets and network-first for API calls with offline support",
+  "frontend/src/main.tsx": "Application entry point with React root render and service worker registration for PWA functionality",
+  "frontend/src/hooks/usePWAInstall.ts": "Custom React hook managing PWA installation prompt, tracking installable state, and providing install function"
+}

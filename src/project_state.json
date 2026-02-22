@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 5,
+  "summary": "Room rental listing app for bachelor accommodations - users can browse and find available rooms with detailed information",
+  "architectural_notes": [
+    "Room listing application focused on bachelor accommodations",
+    "City-specific room rental marketplace",
+    "PWA implementation required for installable web app experience"
+  ],
+  "known_issues": [],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- PWA app icon with home/room rental theme, warm earthy color palette matching the app design (pwa-icon-192.dim_192x192.png)\n- PWA app icon with home/room rental theme, warm earthy color palette matching the app design, larger variant (pwa-icon-512.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-create-a-homepage-that-displays-a-grid-of-all-available-bachelor-room-listings-with-cards-showing-room-image-placeholder-title-monthly-rent-location-and-a-view-details-button-for-each-listing",
+      "title": "Create a homepage that displays a grid of all available bachelor room listings with cards showing: room image placeholder, title, monthly rent, location, and a 'View Details' button for each listing",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-build-a-detailed-room-view-page-that-displays-complete-information-for-a-selected-room-including-full-description-all-amenities-as-a-list-exact-location-contact-details-monthly-rent-room-type-and-availability-status",
+      "title": "Build a detailed room view page that displays complete information for a selected room including: full description, all amenities as a list, exact location, contact details, monthly rent, room type, and availability status",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-form-to-add-new-room-listings-with-fields-for-room-title-monthly-rent-location-room-type-selection-amenities-checkboxes-wifi-ac-attached-bathroom-furniture-parking-etc-contact-information-and-description",
+      "title": "Implement a form to add new room listings with fields for: room title, monthly rent, location, room type selection, amenities checkboxes (WiFi, AC, attached bathroom, furniture, parking, etc.), contact information, and description",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-warm-welcoming-visual-theme-with-earthy-tones-terracotta-warm-beige-soft-greens-and-comfortable-typography-that-conveys-trustworthiness-and-home-finding-optimism-with-card-based-layouts-and-generous-spacing-to-make-room-browsing-feel-inviting-and-stress-free",
+      "title": "Apply a warm, welcoming visual theme with earthy tones (terracotta, warm beige, soft greens) and comfortable typography that conveys trustworthiness and home-finding optimism, with card-based layouts and generous spacing to make room browsing feel inviting and stress-free",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-configure-the-application-as-a-progressive-web-app-pwa-by-adding-a-web-app-manifest-file-with-appropriate-metadata-including-app-name-description-icons-theme-colors-display-mode-set-to-standalone-and-start-url",
+      "title": "Configure the application as a Progressive Web App (PWA) by adding a web app manifest file with appropriate metadata including app name, description, icons, theme colors, display mode set to 'standalone', and start URL",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-a-service-worker-for-pwa-functionality-to-enable-offline-capability-caching-strategies-and-installation-prompts",
+      "title": "Implement a service worker for PWA functionality to enable offline capability, caching strategies, and installation prompts",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-generate-pwa-icon-assets-in-multiple-sizes-192x192-512x512-for-the-room-rental-application-with-a-home-room-themed-design",
+      "title": "Generate PWA icon assets in multiple sizes (192x192, 512x512) for the room rental application with a home/room themed design",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-application-name-throughout-the-codebase-based-on-user-s-preference-ask-user-for-the-new-desired-name",
+      "title": "Update the application name throughout the codebase based on user's preference (ask user for the new desired name)",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Display list of available bachelor rooms with details",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Show room details including rent, location, amenities",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Create a backend data model for room listings that stores: room title, monthly rent amount, location/address, room type (single/shared), amenities list, contact information, and availability status",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Implement backend methods to add new room listings and retrieve all available rooms filtered by availability status",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Convert application to PWA (Progressive Web App) with add-to-home-screen capability",
+      "reqIds": [],
+      "status": "pending"
+    }
+  ],
+  "projectName": "Room Rental Finder",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}

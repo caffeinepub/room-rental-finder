@@ -1,0 +1,25 @@
+{
+  "name": "Bachelor Room Finder",
+  "short_name": "Room Finder",
+  "description": "Find and list bachelor rooms for rent easily",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#FFF8F0",
+  "theme_color": "#D2691E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/assets/generated/pwa-icon-192.dim_192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/assets/generated/pwa-icon-512.dim_512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

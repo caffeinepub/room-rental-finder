@@ -1,0 +1,101 @@
+{
+  "kind": "build_request",
+  "title": "Convert to PWA and change application name",
+  "projectName": "Room Rental Finder",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-7",
+      "text": "Configure the application as a Progressive Web App (PWA) by adding a web app manifest file with appropriate metadata including app name, description, icons, theme colors, display mode set to 'standalone', and start URL",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Ok pwa me convert karo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A manifest.json file exists in frontend/public with proper PWA configuration",
+        "Manifest includes app name, short_name, description, theme_color, background_color, display: 'standalone', and start_url",
+        "Manifest is linked in index.html with appropriate meta tags"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Implement a service worker for PWA functionality to enable offline capability, caching strategies, and installation prompts",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Ok pwa me convert karo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Service worker file is created and registered in the application",
+        "Basic caching strategy is implemented for static assets",
+        "Application can be installed to device home screen",
+        "Install prompt appears on supported browsers"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Generate PWA icon assets in multiple sizes (192x192, 512x512) for the room rental application with a home/room themed design",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "Ok pwa me convert karo"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Icon files are generated and placed in frontend/public/assets/generated",
+        "Icons are referenced in the manifest.json",
+        "Icons display correctly when app is installed to home screen"
+      ]
+    },
+    {
+      "id": "REQ-10",
+      "text": "Update the application name throughout the codebase based on user's preference (ask user for the new desired name)",
+      "target": "both",
+      "source": {
+        "messageIds": [
+          "msg-last"
+        ],
+        "quotes": [
+          "mujhe iska name change karna hai"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Application name is updated in index.html title tag",
+        "Application name is updated in PWA manifest",
+        "Application name is updated in Navigation component",
+        "All user-facing references to the app name are consistent"
+      ]
+    }
+  ],
+  "constraints": [
+    "Preserve existing warm visual theme with earthy tones",
+    "Maintain existing routing and page structure",
+    "Do not modify backend actor logic",
+    "Keep Internet Identity authentication intact"
+  ],
+  "nonGoals": [
+    "Converting to native Android application",
+    "Creating Play Store APK",
+    "Implementing push notifications",
+    "Adding offline data synchronization for user-generated content"
+  ],
+  "imageRequirements": {
+    "required": [
+      "PWA app icon with home/room rental theme, warm earthy color palette matching the app design (pwa-icon-192.dim_192x192.png)",
+      "PWA app icon with home/room rental theme, warm earthy color palette matching the app design, larger variant (pwa-icon-512.dim_512x512.png)"
+    ],
+    "edits": []
+  }
+}
