@@ -1,101 +1,72 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Convert to PWA and change application name",
+  "title": "Add room photo upload functionality to frontend",
   "requirements": [
     {
-      "id": "REQ-7",
-      "summary": "Configure the application as a Progressive Web App (PWA) with manifest file containing app metadata, icons, theme colors, and standalone display mode",
+      "id": "REQ-12",
+      "summary": "Add multiple image upload functionality to AddListingPage form with preview and validation",
       "acceptanceCriteria": [
-        "A manifest.json file exists in frontend/public with proper PWA configuration",
-        "Manifest includes app name, short_name, description, theme_color, background_color, display: 'standalone', and start_url",
-        "Manifest is linked in index.html with appropriate meta tags"
+        "File input field accepts multiple image files (JPEG, PNG)",
+        "Preview thumbnails display selected images before submission",
+        "Images are converted to base64 or uploaded format compatible with backend",
+        "Form validation ensures at least one photo is uploaded",
+        "Upload progress or loading state is shown during submission"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/manifest.json",
-          "operation": "create",
-          "description": "Create PWA manifest file with app name, short_name, description, theme_color matching the warm earthy palette, background_color, display set to 'standalone', start_url set to '/', scope set to '/', and icons array referencing the generated PWA icons at frontend/public/assets/generated/pwa-icon-192.dim_192x192.png and frontend/public/assets/generated/pwa-icon-512.dim_512x512.png"
-        },
-        {
-          "path": "frontend/index.html",
+          "path": "frontend/src/pages/AddListingPage.tsx",
           "operation": "modify",
-          "description": "Add manifest link tag (<link rel=\"manifest\" href=\"/manifest.json\">) in the head section, add theme-color meta tag matching the primary color from the warm palette, and add apple-touch-icon meta tags for iOS compatibility referencing the 192x192 generated icon"
+          "description": "Add file input field for multiple image selection with type accept='image/jpeg,image/png'. Add state to manage selected files array. Convert selected image files to ExternalBlob instances using ExternalBlob.fromBytes() for each file. Display preview thumbnails in a grid showing selected images with remove option. Add form validation requiring at least one photo before submission. Integrate withUploadProgress() to track upload percentage during form submission and display loading state. Pass photos array as ExternalBlob[] to the addRoomListing mutation. Use the blob-storage component to support image upload by creating ExternalBlob instances from file data. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-8",
-      "summary": "Implement service worker for PWA functionality enabling offline capability, caching strategies, and installation prompts",
+      "id": "REQ-13",
+      "summary": "Update RoomCard to display first uploaded photo with fallback to placeholder",
       "acceptanceCriteria": [
-        "Service worker file is created and registered in the application",
-        "Basic caching strategy is implemented for static assets",
-        "Application can be installed to device home screen",
-        "Install prompt appears on supported browsers"
+        "RoomCard renders the first photo from the photos array when available",
+        "Placeholder image displays when photos array is empty or undefined",
+        "Images maintain proper aspect ratio and card layout"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/service-worker.js",
-          "operation": "create",
-          "description": "Create service worker implementing cache-first strategy for static assets (JS, CSS, fonts, images), network-first strategy for API calls, install event handler for initial cache population, activate event handler for old cache cleanup, and fetch event handler for request interception"
-        },
-        {
-          "path": "frontend/src/main.tsx",
+          "path": "frontend/src/components/RoomCard.tsx",
           "operation": "modify",
-          "description": "Add service worker registration logic after React root render, checking for navigator.serviceWorker support, registering /service-worker.js, and handling registration success/failure with console logging"
-        },
-        {
-          "path": "frontend/src/hooks/usePWAInstall.ts",
-          "operation": "create",
-          "description": "Create custom React hook that listens for beforeinstallprompt event, stores the prompt event, provides installPWA function to trigger the prompt, tracks installation state, and returns installation status and install function for UI integration"
-        },
-        {
-          "path": "frontend/src/components/Navigation.tsx",
-          "operation": "modify",
-          "description": "Import and use the usePWAInstall hook, conditionally render an install button in the navigation bar when the app is installable, trigger the install prompt when clicked, and hide the button after successful installation"
+          "description": "Update image src logic to use listing.photos[0]?.getDirectURL() when photos array exists and has items. Fall back to frontend/public/assets/generated/room-placeholder.dim_800x600.png when photos array is empty, undefined, or null. Ensure img element maintains aspect-ratio styling for proper card layout regardless of image source. Use the blob-storage component's ExternalBlob.getDirectURL() method to retrieve the direct URL for streaming and caching. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-9",
-      "summary": "Wire generated PWA icon assets into the application manifest and ensure proper display when installed to home screen",
+      "id": "REQ-14",
+      "summary": "Update RoomDetailPage to display all photos in interactive gallery with navigation",
       "acceptanceCriteria": [
-        "Icon files are generated and placed in frontend/public/assets/generated",
-        "Icons are referenced in the manifest.json",
-        "Icons display correctly when app is installed to home screen"
+        "All uploaded photos are displayed in an interactive gallery or carousel",
+        "Users can navigate between photos using next/previous controls or thumbnails",
+        "Main image displays at appropriate size with proper aspect ratio",
+        "Gallery handles single photo, multiple photos, and no photos scenarios gracefully"
       ],
       "file_operations": [
         {
-          "path": "frontend/public/manifest.json",
+          "path": "frontend/src/pages/RoomDetailPage.tsx",
           "operation": "modify",
-          "description": "Ensure the icons array includes entries for frontend/public/assets/generated/pwa-icon-192.dim_192x192.png with size 192x192 and type image/png, and frontend/public/assets/generated/pwa-icon-512.dim_512x512.png with size 512x512 and type image/png, with purpose set to 'any maskable' for adaptive icon support"
+          "description": "Replace single image display with gallery component showing all photos from listing.photos array. Add state to track currently selected photo index. Render main image using photos[selectedIndex]?.getDirectURL() with proper aspect ratio styling. Add previous/next button controls to navigate between photos, disabled appropriately at array boundaries. Display thumbnail strip below main image showing all photos as clickable previews. Handle edge cases: show placeholder from frontend/public/assets/generated/room-placeholder.dim_800x600.png when photos array is empty, show single image without navigation when only one photo exists, show full gallery controls when multiple photos exist. Use the blob-storage component's ExternalBlob.getDirectURL() method for all photo URLs to leverage streaming and caching. Verify the component's usage instructions before implementing."
         }
       ]
     },
     {
-      "id": "REQ-10",
-      "summary": "Update the application name throughout the frontend codebase to the user's preferred name",
+      "id": "REQ-15",
+      "summary": "Update useQueries hooks to handle photos field in room listing operations",
       "acceptanceCriteria": [
-        "Application name is updated in index.html title tag",
-        "Application name is updated in PWA manifest",
-        "Application name is updated in Navigation component",
-        "All user-facing references to the app name are consistent"
+        "useAddRoomListing mutation includes photos parameter in the backend call",
+        "Query hooks properly type and return photos field from backend responses",
+        "TypeScript types are updated to include photos field"
       ],
       "file_operations": [
         {
-          "path": "frontend/index.html",
+          "path": "frontend/src/hooks/useQueries.ts",
           "operation": "modify",
-          "description": "Update the <title> tag to reflect the new application name chosen by the user (to be determined during implementation)"
-        },
-        {
-          "path": "frontend/public/manifest.json",
-          "operation": "modify",
-          "description": "Update the name and short_name fields in the manifest to match the new application name chosen by the user"
-        },
-        {
-          "path": "frontend/src/components/Navigation.tsx",
-          "operation": "modify",
-          "description": "Update the displayed application title text in the navigation header to match the new application name chosen by the user"
+          "description": "Update useAddRoomListing mutation function signature to accept photos parameter of type ExternalBlob[]. Pass photos array to actor.addRoomListing backend call as the ninth parameter matching the backend interface signature. Update RoomListing TypeScript type interface to include photos field as Array<ExternalBlob> matching the backend.d.ts interface. Ensure useGetAvailableRooms and useGetAllRooms query hooks properly return the photos field in their response data. No changes needed to invalidation logic as photos are part of existing RoomListing type."
         }
       ]
     }

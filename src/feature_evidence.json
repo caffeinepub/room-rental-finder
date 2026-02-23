@@ -2,79 +2,78 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-configure-the-application-as-a-progressive-web-app-pwa-by-adding-a-web-app-manifest-file-with-appropriate-metadata-including-app-name-description-icons-theme-colors-display-mode-set-to-standalone-and-start-url",
-      "featureTitle": "Configure the application as a Progressive Web App (PWA) by adding a web app manifest file with appropriate metadata including app name, description, icons, theme colors, display mode set to 'standalone', and start URL",
+      "featureId": "feature-add-image-upload-functionality-to-the-addlistingpage-form-that-allows-users-to-select-and-upload-multiple-room-photos-at-least-3-5-photos-per-listing",
+      "featureTitle": "Add image upload functionality to the AddListingPage form that allows users to select and upload multiple room photos (at least 3-5 photos per listing)",
       "files": [
-        "frontend/index.html",
-        "frontend/public/manifest.json"
+        "frontend/src/pages/AddListingPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-7"
+        "REQ-12"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-implement-a-service-worker-for-pwa-functionality-to-enable-offline-capability-caching-strategies-and-installation-prompts",
-      "featureTitle": "Implement a service worker for PWA functionality to enable offline capability, caching strategies, and installation prompts",
+      "featureId": "feature-update-roomcard-component-to-display-the-first-uploaded-room-photo-instead-of-the-placeholder-image-with-fallback-to-placeholder-if-no-photos-exist",
+      "featureTitle": "Update RoomCard component to display the first uploaded room photo instead of the placeholder image, with fallback to placeholder if no photos exist",
       "files": [
-        "frontend/public/service-worker.js",
-        "frontend/src/components/Navigation.tsx",
-        "frontend/src/hooks/usePWAInstall.ts"
+        "frontend/src/components/RoomCard.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-8"
+        "REQ-13"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-generate-pwa-icon-assets-in-multiple-sizes-192x192-512x512-for-the-room-rental-application-with-a-home-room-themed-design",
-      "featureTitle": "Generate PWA icon assets in multiple sizes (192x192, 512x512) for the room rental application with a home/room themed design",
+      "featureId": "feature-update-roomdetailpage-to-display-all-uploaded-room-photos-in-a-gallery-or-carousel-format-with-navigation-between-images",
+      "featureTitle": "Update RoomDetailPage to display all uploaded room photos in a gallery or carousel format with navigation between images",
       "files": [
-        "frontend/public/manifest.json"
+        "frontend/src/pages/RoomDetailPage.tsx"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-9"
+        "REQ-14"
       ],
       "confidence": "high"
     },
     {
-      "featureId": "feature-update-the-application-name-throughout-the-codebase-based-on-user-s-preference-ask-user-for-the-new-desired-name",
-      "featureTitle": "Update the application name throughout the codebase based on user's preference (ask user for the new desired name)",
+      "featureId": "feature-update-the-usequeries-ts-hooks-to-handle-the-new-photos-field-when-fetching-and-submitting-room-listings",
+      "featureTitle": "Update the useQueries.ts hooks to handle the new photos field when fetching and submitting room listings",
       "files": [
-        "frontend/index.html",
-        "frontend/public/manifest.json",
-        "frontend/src/components/Navigation.tsx"
+        "frontend/src/hooks/useQueries.ts"
       ],
       "components": [
         "core-infrastructure@1.0.2",
         "shadcn-ui@1.0.0",
         "build-template-react@1.0.0",
         "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
+        "github-export-icp-cli@1.0.0",
+        "blob-storage@4.0.0"
       ],
       "testIds": [
-        "REQ-10"
+        "REQ-15"
       ],
       "confidence": "high"
     }

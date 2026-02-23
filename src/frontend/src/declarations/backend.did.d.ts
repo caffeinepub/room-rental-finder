@@ -12,6 +12,7 @@ import type { Principal } from '@icp-sdk/core/principal';
 
 export type AvailabilityStatus = { 'occupied' : null } |
   { 'available' : null };
+export type ExternalBlob = Uint8Array;
 export interface RoomListing {
   'id' : string,
   'title' : string,
@@ -21,10 +22,37 @@ export interface RoomListing {
   'availability' : AvailabilityStatus,
   'roomType' : RoomType,
   'location' : string,
+  'photos' : Array<ExternalBlob>,
 }
 export type RoomType = { 'sharedRoom' : null } |
   { 'single' : null };
+export interface _CaffeineStorageCreateCertificateResult {
+  'method' : string,
+  'blob_hash' : string,
+}
+export interface _CaffeineStorageRefillInformation {
+  'proposed_top_up_amount' : [] | [bigint],
+}
+export interface _CaffeineStorageRefillResult {
+  'success' : [] | [boolean],
+  'topped_up_amount' : [] | [bigint],
+}
 export interface _SERVICE {
+  '_caffeineStorageBlobIsLive' : ActorMethod<[Uint8Array], boolean>,
+  '_caffeineStorageBlobsToDelete' : ActorMethod<[], Array<Uint8Array>>,
+  '_caffeineStorageConfirmBlobDeletion' : ActorMethod<
+    [Array<Uint8Array>],
+    undefined
+  >,
+  '_caffeineStorageCreateCertificate' : ActorMethod<
+    [string],
+    _CaffeineStorageCreateCertificateResult
+  >,
+  '_caffeineStorageRefillCashier' : ActorMethod<
+    [[] | [_CaffeineStorageRefillInformation]],
+    _CaffeineStorageRefillResult
+  >,
+  '_caffeineStorageUpdateGatewayPrincipals' : ActorMethod<[], undefined>,
   'addRoomListing' : ActorMethod<
     [
       string,
@@ -35,6 +63,7 @@ export interface _SERVICE {
       Array<string>,
       string,
       AvailabilityStatus,
+      Array<ExternalBlob>,
     ],
     undefined
   >,

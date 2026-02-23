@@ -1,101 +1,116 @@
 {
   "kind": "build_request",
-  "title": "Convert to PWA and change application name",
-  "projectName": "Room Rental Finder",
+  "title": "Add room photo upload functionality",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-7",
-      "text": "Configure the application as a Progressive Web App (PWA) by adding a web app manifest file with appropriate metadata including app name, description, icons, theme colors, display mode set to 'standalone', and start URL",
-      "target": "frontend",
+      "id": "REQ-11",
+      "text": "Update the RoomListing type in backend/main.mo to include a photos field that stores an array of image URLs or base64-encoded image data strings",
+      "target": "backend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-user-photo-upload"
         ],
         "quotes": [
-          "Ok pwa me convert karo"
+          "Mai isme room ke photos bhi upload karna chahta hoon"
         ]
       },
       "acceptanceCriteria": [
-        "A manifest.json file exists in frontend/public with proper PWA configuration",
-        "Manifest includes app name, short_name, description, theme_color, background_color, display: 'standalone', and start_url",
-        "Manifest is linked in index.html with appropriate meta tags"
+        "RoomListing type includes a photos field of type [Text] or similar array structure",
+        "Existing addRoomListing function accepts photos parameter",
+        "Photos are persisted in the backend storage Map"
       ]
     },
     {
-      "id": "REQ-8",
-      "text": "Implement a service worker for PWA functionality to enable offline capability, caching strategies, and installation prompts",
+      "id": "REQ-12",
+      "text": "Add image upload functionality to the AddListingPage form that allows users to select and upload multiple room photos (at least 3-5 photos per listing)",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-user-photo-upload"
         ],
         "quotes": [
-          "Ok pwa me convert karo"
+          "Mai isme room ke photos bhi upload karna chahta hoon"
         ]
       },
       "acceptanceCriteria": [
-        "Service worker file is created and registered in the application",
-        "Basic caching strategy is implemented for static assets",
-        "Application can be installed to device home screen",
-        "Install prompt appears on supported browsers"
+        "File input field accepts multiple image files (JPEG, PNG)",
+        "Preview thumbnails display selected images before submission",
+        "Images are converted to base64 or uploaded format compatible with backend",
+        "Form validation ensures at least one photo is uploaded",
+        "Upload progress or loading state is shown during submission"
       ]
     },
     {
-      "id": "REQ-9",
-      "text": "Generate PWA icon assets in multiple sizes (192x192, 512x512) for the room rental application with a home/room themed design",
+      "id": "REQ-13",
+      "text": "Update RoomCard component to display the first uploaded room photo instead of the placeholder image, with fallback to placeholder if no photos exist",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-user-photo-upload"
         ],
         "quotes": [
-          "Ok pwa me convert karo"
+          "Mai isme room ke photos bhi upload karna chahta hoon"
         ]
       },
       "acceptanceCriteria": [
-        "Icon files are generated and placed in frontend/public/assets/generated",
-        "Icons are referenced in the manifest.json",
-        "Icons display correctly when app is installed to home screen"
+        "RoomCard renders the first photo from the photos array when available",
+        "Placeholder image displays when photos array is empty or undefined",
+        "Images maintain proper aspect ratio and card layout"
       ]
     },
     {
-      "id": "REQ-10",
-      "text": "Update the application name throughout the codebase based on user's preference (ask user for the new desired name)",
-      "target": "both",
+      "id": "REQ-14",
+      "text": "Update RoomDetailPage to display all uploaded room photos in a gallery or carousel format with navigation between images",
+      "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-last"
+          "msg-user-photo-upload"
         ],
         "quotes": [
-          "mujhe iska name change karna hai"
+          "Mai isme room ke photos bhi upload karna chahta hoon"
         ]
       },
       "acceptanceCriteria": [
-        "Application name is updated in index.html title tag",
-        "Application name is updated in PWA manifest",
-        "Application name is updated in Navigation component",
-        "All user-facing references to the app name are consistent"
+        "All uploaded photos are displayed in an interactive gallery or carousel",
+        "Users can navigate between photos using next/previous controls or thumbnails",
+        "Main image displays at appropriate size with proper aspect ratio",
+        "Gallery handles single photo, multiple photos, and no photos scenarios gracefully"
+      ]
+    },
+    {
+      "id": "REQ-15",
+      "text": "Update the useQueries.ts hooks to handle the new photos field when fetching and submitting room listings",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-user-photo-upload"
+        ],
+        "quotes": [
+          "Mai isme room ke photos bhi upload karna chahta hoon"
+        ]
+      },
+      "acceptanceCriteria": [
+        "useAddRoomListing mutation includes photos parameter in the backend call",
+        "Query hooks properly type and return photos field from backend responses",
+        "TypeScript types are updated to include photos field"
       ]
     }
   ],
   "constraints": [
-    "Preserve existing warm visual theme with earthy tones",
-    "Maintain existing routing and page structure",
-    "Do not modify backend actor logic",
-    "Keep Internet Identity authentication intact"
+    "Maintain single-actor architecture in backend/main.mo",
+    "Do not modify immutable frontend paths (useInternetIdentity.ts, useActor.ts, main.tsx, components/ui)",
+    "Preserve existing warm, welcoming visual theme with earthy tones",
+    "Ensure PWA functionality remains intact"
   ],
   "nonGoals": [
-    "Converting to native Android application",
-    "Creating Play Store APK",
-    "Implementing push notifications",
-    "Adding offline data synchronization for user-generated content"
+    "External image hosting services or CDN integration",
+    "Image compression or optimization beyond basic browser handling",
+    "Advanced photo editing features",
+    "Video upload functionality"
   ],
   "imageRequirements": {
-    "required": [
-      "PWA app icon with home/room rental theme, warm earthy color palette matching the app design (pwa-icon-192.dim_192x192.png)",
-      "PWA app icon with home/room rental theme, warm earthy color palette matching the app design, larger variant (pwa-icon-512.dim_512x512.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

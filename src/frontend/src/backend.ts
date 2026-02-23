@@ -98,6 +98,18 @@ export interface RoomListing {
     availability: AvailabilityStatus;
     roomType: RoomType;
     location: string;
+    photos: Array<ExternalBlob>;
+}
+export interface _CaffeineStorageRefillInformation {
+    proposed_top_up_amount?: bigint;
+}
+export interface _CaffeineStorageCreateCertificateResult {
+    method: string;
+    blob_hash: string;
+}
+export interface _CaffeineStorageRefillResult {
+    success?: boolean;
+    topped_up_amount?: bigint;
 }
 export enum AvailabilityStatus {
     occupied = "occupied",
@@ -108,24 +120,114 @@ export enum RoomType {
     single = "single"
 }
 export interface backendInterface {
-    addRoomListing(id: string, title: string, rentAmount: bigint, location: string, roomType: RoomType, amenities: Array<string>, contactInfo: string, availability: AvailabilityStatus): Promise<void>;
+    _caffeineStorageBlobIsLive(hash: Uint8Array): Promise<boolean>;
+    _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>>;
+    _caffeineStorageConfirmBlobDeletion(blobs: Array<Uint8Array>): Promise<void>;
+    _caffeineStorageCreateCertificate(blobHash: string): Promise<_CaffeineStorageCreateCertificateResult>;
+    _caffeineStorageRefillCashier(refillInformation: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult>;
+    _caffeineStorageUpdateGatewayPrincipals(): Promise<void>;
+    addRoomListing(id: string, title: string, rentAmount: bigint, location: string, roomType: RoomType, amenities: Array<string>, contactInfo: string, availability: AvailabilityStatus, photos: Array<ExternalBlob>): Promise<void>;
     getAllAvailableRooms(): Promise<Array<RoomListing>>;
     getAllRooms(): Promise<Array<RoomListing>>;
 }
-import type { AvailabilityStatus as _AvailabilityStatus, RoomListing as _RoomListing, RoomType as _RoomType } from "./declarations/backend.did.d.ts";
+import type { AvailabilityStatus as _AvailabilityStatus, ExternalBlob as _ExternalBlob, RoomListing as _RoomListing, RoomType as _RoomType, _CaffeineStorageRefillInformation as __CaffeineStorageRefillInformation, _CaffeineStorageRefillResult as __CaffeineStorageRefillResult } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async addRoomListing(arg0: string, arg1: string, arg2: bigint, arg3: string, arg4: RoomType, arg5: Array<string>, arg6: string, arg7: AvailabilityStatus): Promise<void> {
+    async _caffeineStorageBlobIsLive(arg0: Uint8Array): Promise<boolean> {
         if (this.processError) {
             try {
-                const result = await this.actor.addRoomListing(arg0, arg1, arg2, arg3, to_candid_RoomType_n1(this._uploadFile, this._downloadFile, arg4), arg5, arg6, to_candid_AvailabilityStatus_n3(this._uploadFile, this._downloadFile, arg7));
+                const result = await this.actor._caffeineStorageBlobIsLive(arg0);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.addRoomListing(arg0, arg1, arg2, arg3, to_candid_RoomType_n1(this._uploadFile, this._downloadFile, arg4), arg5, arg6, to_candid_AvailabilityStatus_n3(this._uploadFile, this._downloadFile, arg7));
+            const result = await this.actor._caffeineStorageBlobIsLive(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageBlobsToDelete(): Promise<Array<Uint8Array>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageBlobsToDelete();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageBlobsToDelete();
+            return result;
+        }
+    }
+    async _caffeineStorageConfirmBlobDeletion(arg0: Array<Uint8Array>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageConfirmBlobDeletion(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageCreateCertificate(arg0: string): Promise<_CaffeineStorageCreateCertificateResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageCreateCertificate(arg0);
+            return result;
+        }
+    }
+    async _caffeineStorageRefillCashier(arg0: _CaffeineStorageRefillInformation | null): Promise<_CaffeineStorageRefillResult> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+                return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageRefillCashier(to_candid_opt_n1(this._uploadFile, this._downloadFile, arg0));
+            return from_candid__CaffeineStorageRefillResult_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async _caffeineStorageUpdateGatewayPrincipals(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor._caffeineStorageUpdateGatewayPrincipals();
+            return result;
+        }
+    }
+    async addRoomListing(arg0: string, arg1: string, arg2: bigint, arg3: string, arg4: RoomType, arg5: Array<string>, arg6: string, arg7: AvailabilityStatus, arg8: Array<ExternalBlob>): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addRoomListing(arg0, arg1, arg2, arg3, to_candid_RoomType_n8(this._uploadFile, this._downloadFile, arg4), arg5, arg6, to_candid_AvailabilityStatus_n10(this._uploadFile, this._downloadFile, arg7), await to_candid_vec_n12(this._uploadFile, this._downloadFile, arg8));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addRoomListing(arg0, arg1, arg2, arg3, to_candid_RoomType_n8(this._uploadFile, this._downloadFile, arg4), arg5, arg6, to_candid_AvailabilityStatus_n10(this._uploadFile, this._downloadFile, arg7), await to_candid_vec_n12(this._uploadFile, this._downloadFile, arg8));
             return result;
         }
     }
@@ -133,41 +235,53 @@ export class Backend implements backendInterface {
         if (this.processError) {
             try {
                 const result = await this.actor.getAllAvailableRooms();
-                return from_candid_vec_n5(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getAllAvailableRooms();
-            return from_candid_vec_n5(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
         }
     }
     async getAllRooms(): Promise<Array<RoomListing>> {
         if (this.processError) {
             try {
                 const result = await this.actor.getAllRooms();
-                return from_candid_vec_n5(this._uploadFile, this._downloadFile, result);
+                return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getAllRooms();
-            return from_candid_vec_n5(this._uploadFile, this._downloadFile, result);
+            return from_candid_vec_n14(this._uploadFile, this._downloadFile, result);
         }
     }
 }
-function from_candid_AvailabilityStatus_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AvailabilityStatus): AvailabilityStatus {
-    return from_candid_variant_n9(_uploadFile, _downloadFile, value);
+function from_candid_AvailabilityStatus_n17(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _AvailabilityStatus): AvailabilityStatus {
+    return from_candid_variant_n18(_uploadFile, _downloadFile, value);
 }
-function from_candid_RoomListing_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RoomListing): RoomListing {
-    return from_candid_record_n7(_uploadFile, _downloadFile, value);
+async function from_candid_ExternalBlob_n22(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _ExternalBlob): Promise<ExternalBlob> {
+    return await _downloadFile(value);
 }
-function from_candid_RoomType_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RoomType): RoomType {
-    return from_candid_variant_n11(_uploadFile, _downloadFile, value);
+async function from_candid_RoomListing_n15(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RoomListing): Promise<RoomListing> {
+    return await from_candid_record_n16(_uploadFile, _downloadFile, value);
 }
-function from_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_RoomType_n19(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _RoomType): RoomType {
+    return from_candid_variant_n20(_uploadFile, _downloadFile, value);
+}
+function from_candid__CaffeineStorageRefillResult_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: __CaffeineStorageRefillResult): _CaffeineStorageRefillResult {
+    return from_candid_record_n5(_uploadFile, _downloadFile, value);
+}
+function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [boolean]): boolean | null {
+    return value.length === 0 ? null : value[0];
+}
+function from_candid_opt_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [bigint]): bigint | null {
+    return value.length === 0 ? null : value[0];
+}
+async function from_candid_record_n16(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     id: string;
     title: string;
     contactInfo: string;
@@ -176,7 +290,8 @@ function from_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint
     availability: _AvailabilityStatus;
     roomType: _RoomType;
     location: string;
-}): {
+    photos: Array<_ExternalBlob>;
+}): Promise<{
     id: string;
     title: string;
     contactInfo: string;
@@ -185,42 +300,88 @@ function from_candid_record_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint
     availability: AvailabilityStatus;
     roomType: RoomType;
     location: string;
-} {
+    photos: Array<ExternalBlob>;
+}> {
     return {
         id: value.id,
         title: value.title,
         contactInfo: value.contactInfo,
         rentAmount: value.rentAmount,
         amenities: value.amenities,
-        availability: from_candid_AvailabilityStatus_n8(_uploadFile, _downloadFile, value.availability),
-        roomType: from_candid_RoomType_n10(_uploadFile, _downloadFile, value.roomType),
-        location: value.location
+        availability: from_candid_AvailabilityStatus_n17(_uploadFile, _downloadFile, value.availability),
+        roomType: from_candid_RoomType_n19(_uploadFile, _downloadFile, value.roomType),
+        location: value.location,
+        photos: await from_candid_vec_n21(_uploadFile, _downloadFile, value.photos)
     };
 }
-function from_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
-    sharedRoom: null;
-} | {
-    single: null;
-}): RoomType {
-    return "sharedRoom" in value ? RoomType.sharedRoom : "single" in value ? RoomType.single : value;
+function from_candid_record_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    success: [] | [boolean];
+    topped_up_amount: [] | [bigint];
+}): {
+    success?: boolean;
+    topped_up_amount?: bigint;
+} {
+    return {
+        success: record_opt_to_undefined(from_candid_opt_n6(_uploadFile, _downloadFile, value.success)),
+        topped_up_amount: record_opt_to_undefined(from_candid_opt_n7(_uploadFile, _downloadFile, value.topped_up_amount))
+    };
 }
-function from_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+function from_candid_variant_n18(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     occupied: null;
 } | {
     available: null;
 }): AvailabilityStatus {
     return "occupied" in value ? AvailabilityStatus.occupied : "available" in value ? AvailabilityStatus.available : value;
 }
-function from_candid_vec_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_RoomListing>): Array<RoomListing> {
-    return value.map((x)=>from_candid_RoomListing_n6(_uploadFile, _downloadFile, x));
+function from_candid_variant_n20(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    sharedRoom: null;
+} | {
+    single: null;
+}): RoomType {
+    return "sharedRoom" in value ? RoomType.sharedRoom : "single" in value ? RoomType.single : value;
 }
-function to_candid_AvailabilityStatus_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AvailabilityStatus): _AvailabilityStatus {
-    return to_candid_variant_n4(_uploadFile, _downloadFile, value);
+async function from_candid_vec_n14(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_RoomListing>): Promise<Array<RoomListing>> {
+    return await Promise.all(value.map(async (x)=>await from_candid_RoomListing_n15(_uploadFile, _downloadFile, x)));
 }
-function to_candid_RoomType_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RoomType): _RoomType {
-    return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+async function from_candid_vec_n21(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_ExternalBlob>): Promise<Array<ExternalBlob>> {
+    return await Promise.all(value.map(async (x)=>await from_candid_ExternalBlob_n22(_uploadFile, _downloadFile, x)));
 }
-function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RoomType): {
+function to_candid_AvailabilityStatus_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AvailabilityStatus): _AvailabilityStatus {
+    return to_candid_variant_n11(_uploadFile, _downloadFile, value);
+}
+async function to_candid_ExternalBlob_n13(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: ExternalBlob): Promise<_ExternalBlob> {
+    return await _uploadFile(value);
+}
+function to_candid_RoomType_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RoomType): _RoomType {
+    return to_candid_variant_n9(_uploadFile, _downloadFile, value);
+}
+function to_candid__CaffeineStorageRefillInformation_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation): __CaffeineStorageRefillInformation {
+    return to_candid_record_n3(_uploadFile, _downloadFile, value);
+}
+function to_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _CaffeineStorageRefillInformation | null): [] | [__CaffeineStorageRefillInformation] {
+    return value === null ? candid_none() : candid_some(to_candid__CaffeineStorageRefillInformation_n2(_uploadFile, _downloadFile, value));
+}
+function to_candid_record_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    proposed_top_up_amount?: bigint;
+}): {
+    proposed_top_up_amount: [] | [bigint];
+} {
+    return {
+        proposed_top_up_amount: value.proposed_top_up_amount ? candid_some(value.proposed_top_up_amount) : candid_none()
+    };
+}
+function to_candid_variant_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AvailabilityStatus): {
+    occupied: null;
+} | {
+    available: null;
+} {
+    return value == AvailabilityStatus.occupied ? {
+        occupied: null
+    } : value == AvailabilityStatus.available ? {
+        available: null
+    } : value;
+}
+function to_candid_variant_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: RoomType): {
     sharedRoom: null;
 } | {
     single: null;
@@ -231,16 +392,8 @@ function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8
         single: null
     } : value;
 }
-function to_candid_variant_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: AvailabilityStatus): {
-    occupied: null;
-} | {
-    available: null;
-} {
-    return value == AvailabilityStatus.occupied ? {
-        occupied: null
-    } : value == AvailabilityStatus.available ? {
-        available: null
-    } : value;
+async function to_candid_vec_n12(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<ExternalBlob>): Promise<Array<_ExternalBlob>> {
+    return await Promise.all(value.map(async (x)=>await to_candid_ExternalBlob_n13(_uploadFile, _downloadFile, x)));
 }
 export interface CreateActorOptions {
     agent?: Agent;

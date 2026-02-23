@@ -24,11 +24,18 @@ export default function RoomCard({ room }: RoomCardProps) {
     return type === 'single' ? 'Single Room' : 'Shared Room';
   };
 
+  const getImageSrc = () => {
+    if (room.photos && room.photos.length > 0) {
+      return room.photos[0].getDirectURL();
+    }
+    return '/assets/generated/room-placeholder.dim_800x600.png';
+  };
+
   return (
     <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 h-full flex flex-col">
       <div className="aspect-video overflow-hidden bg-muted">
         <img 
-          src="/assets/generated/room-placeholder.dim_800x600.png" 
+          src={getImageSrc()}
           alt={room.title}
           className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
         />

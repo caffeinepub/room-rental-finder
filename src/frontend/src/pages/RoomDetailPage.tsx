@@ -1,15 +1,17 @@
+import { useState } from 'react';
 import { useNavigate, useParams } from '@tanstack/react-router';
 import { useGetAllRooms } from '../hooks/useQueries';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ArrowLeft, MapPin, IndianRupee, Phone, CheckCircle2, Loader2 } from 'lucide-react';
+import { ArrowLeft, MapPin, IndianRupee, Phone, CheckCircle2, Loader2, ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function RoomDetailPage() {
   const navigate = useNavigate();
   const { id } = useParams({ from: '/room/$id' });
   const { data: rooms, isLoading, error } = useGetAllRooms();
+  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState(0);
 
   const room = rooms?.find((r) => r.id === id);
 
@@ -50,6 +52,18 @@ export default function RoomDetailPage() {
     return status === 'available' ? 'Available Now' : 'Currently Occupied';
   };
 
+  const hasPhotos = room.photos && room.photos.length > 0;
+  const photos = hasPhotos ? room.photos : [];
+  const currentPhoto = hasPhotos ? photos[selectedPhotoIndex].getDirectURL() : '/assets/generated/room-placeholder.dim_800x600.png';
+
+  const handlePreviousPhoto = () => {
+    setSelectedPhotoIndex((prev) => (prev === 0 ? photos.length - 1 : prev - 1));
+  };
+
+  const handleNextPhoto = () => {
+    setSelectedPhotoIndex((prev) => (prev === photos.length - 1 ? 0 : prev + 1));
+  };
+
   return (
     <div className="max-w-5xl mx-auto space-y-6">
       <Button 
@@ -64,13 +78,63 @@ export default function RoomDetailPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <Card>
-            <div className="aspect-video overflow-hidden bg-muted rounded-t-lg">
+            <div className="relative aspect-video overflow-hidden bg-muted rounded-t-lg group">
               <img 
-                src="/assets/generated/room-placeholder.dim_800x600.png" 
-                alt={room.title}
+                src={currentPhoto}
+                alt={`${room.title} - Photo ${selectedPhotoIndex + 1}`}
                 className="w-full h-full object-cover"
               />
+              
+              {hasPhotos && photos.length > 1 && (
+                <>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute left-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={handlePreviousPhoto}
+                    aria-label="Previous photo"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    size="icon"
+                    className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={handleNextPhoto}
+                    aria-label="Next photo"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </Button>
+                  <div className="absolute bottom-2 left-1/2 -translate-x-1/2 bg-black/50 text-white text-sm px-3 py-1 rounded-full">
+                    {selectedPhotoIndex + 1} / {photos.length}
+                  </div>
+                </>
+              )}
             </div>
+
+            {hasPhotos && photos.length > 1 && (
+              <div className="p-4 bg-muted/30">
+                <div className="flex gap-2 overflow-x-auto pb-2">
+                  {photos.map((photo, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setSelectedPhotoIndex(index)}
+                      className={`relative flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden border-2 transition-all ${
+                        index === selectedPhotoIndex
+                          ? 'border-primary ring-2 ring-primary/20'
+                          : 'border-transparent hover:border-muted-foreground/50'
+                      }`}
+                    >
+                      <img
+                        src={photo.getDirectURL()}
+                        alt={`Thumbnail ${index + 1}`}
+                        className="w-full h-full object-cover"
+                      />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
             
             <CardHeader>
               <div className="flex items-start justify-between gap-4 flex-wrap">

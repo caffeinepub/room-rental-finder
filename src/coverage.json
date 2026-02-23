@@ -1,85 +1,86 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-22T16:35:04.761Z",
+  "generatedAt": "2026-02-22T16:47:02.551Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
   },
   "requirements": {
-    "total": 4,
+    "total": 5,
     "implemented": 4,
     "items": [
       {
-        "id": "REQ-10",
-        "summary": "Update the application name throughout the codebase based on user's preference (ask user for the new desired name)",
+        "id": "REQ-11",
+        "summary": "Update the RoomListing type in backend/main.mo to include a photos field that stores an array of image URLs or base64-encoded image data strings",
+        "status": "unknown",
+        "plannedFiles": [],
+        "matchedFiles": []
+      },
+      {
+        "id": "REQ-12",
+        "summary": "Add image upload functionality to the AddListingPage form that allows users to select and upload multiple room photos (at least 3-5 photos per listing)",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/index.html",
-          "frontend/public/manifest.json",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/AddListingPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/index.html",
-          "frontend/public/manifest.json",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/AddListingPage.tsx"
         ]
       },
       {
-        "id": "REQ-7",
-        "summary": "Configure the application as a Progressive Web App (PWA) by adding a web app manifest file with appropriate metadata including app name, description, icons, theme colors, display mode set to 'standalone', and start URL",
+        "id": "REQ-13",
+        "summary": "Update RoomCard component to display the first uploaded room photo instead of the placeholder image, with fallback to placeholder if no photos exist",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/manifest.json",
-          "frontend/index.html"
+          "frontend/src/components/RoomCard.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/manifest.json",
-          "frontend/index.html"
+          "frontend/src/components/RoomCard.tsx"
         ]
       },
       {
-        "id": "REQ-8",
-        "summary": "Implement a service worker for PWA functionality to enable offline capability, caching strategies, and installation prompts",
+        "id": "REQ-14",
+        "summary": "Update RoomDetailPage to display all uploaded room photos in a gallery or carousel format with navigation between images",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/service-worker.js",
-          "frontend/src/main.tsx",
-          "frontend/src/hooks/usePWAInstall.ts",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/RoomDetailPage.tsx"
         ],
         "matchedFiles": [
-          "frontend/public/service-worker.js",
-          "frontend/src/hooks/usePWAInstall.ts",
-          "frontend/src/components/Navigation.tsx"
+          "frontend/src/pages/RoomDetailPage.tsx"
         ]
       },
       {
-        "id": "REQ-9",
-        "summary": "Generate PWA icon assets in multiple sizes (192x192, 512x512) for the room rental application with a home/room themed design",
+        "id": "REQ-15",
+        "summary": "Update the useQueries.ts hooks to handle the new photos field when fetching and submitting room listings",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/public/manifest.json"
+          "frontend/src/hooks/useQueries.ts"
         ],
         "matchedFiles": [
-          "frontend/public/manifest.json"
+          "frontend/src/hooks/useQueries.ts"
         ]
       }
     ]
   },
   "changedFiles": [
+    "backend/blob-storage/Mixin.mo",
+    "backend/blob-storage/Storage.mo",
+    "backend/main.mo",
+    "backend/migration.mo",
     "build-request.json",
-    "build-template/README.md",
+    "caffeine.lock.json",
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/index.html",
-    "frontend/public/assets/generated/pwa-icon-192.dim_192x192.png",
-    "frontend/public/assets/generated/pwa-icon-512.dim_512x512.png",
-    "frontend/public/manifest.json",
-    "frontend/public/service-worker.js",
-    "frontend/src/components/Navigation.tsx",
-    "frontend/src/hooks/usePWAInstall.ts",
+    "frontend/src/backend.d.ts",
+    "frontend/src/backend.ts",
+    "frontend/src/components/RoomCard.tsx",
+    "frontend/src/declarations/backend.did.d.ts",
+    "frontend/src/declarations/backend.did.js",
+    "frontend/src/hooks/useQueries.ts",
+    "frontend/src/pages/AddListingPage.tsx",
+    "frontend/src/pages/RoomDetailPage.tsx",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

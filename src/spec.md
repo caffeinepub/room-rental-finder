@@ -1,12 +1,13 @@
 # Specification
 
 ## Summary
-**Goal:** Convert the Room Rental Finder application to a Progressive Web App (PWA) and update the application name throughout.
+**Goal:** Add room photo upload functionality to allow users to upload and display multiple photos for each room listing.
 
 **Planned changes:**
-- Add PWA manifest file with app metadata, icons, theme colors, and standalone display mode
-- Implement service worker for offline capability, caching, and installation prompts
-- Generate PWA icon assets in multiple sizes (192x192, 512x512) with room rental theme
-- Update application name consistently across all user-facing locations (title, manifest, navigation)
+- Add photos field to RoomListing type in backend to store array of image data
+- Add multi-image upload form with preview to AddListingPage
+- Update RoomCard to display first uploaded photo instead of placeholder
+- Create photo gallery/carousel on RoomDetailPage to display all room photos
+- Update frontend hooks to handle photos field in queries and mutations
 
-**User-visible outcome:** Users can install the application to their device home screen like a native app, use it offline, and see the updated application name throughout the interface.
+**User-visible outcome:** Users can upload 3-5 photos when creating a room listing, see the first photo on listing cards, and browse all photos in a gallery on the detail page.

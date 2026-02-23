@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { useActor } from './useActor';
-import type { RoomListing, RoomType, AvailabilityStatus } from '../backend';
+import type { RoomListing, RoomType, AvailabilityStatus, ExternalBlob } from '../backend';
 import { toast } from 'sonner';
 
 export function useGetAllAvailableRooms() {
@@ -38,6 +38,7 @@ interface AddRoomListingParams {
   amenities: string[];
   contactInfo: string;
   availability: AvailabilityStatus;
+  photos: ExternalBlob[];
 }
 
 export function useAddRoomListing() {
@@ -56,7 +57,8 @@ export function useAddRoomListing() {
         params.roomType,
         params.amenities,
         params.contactInfo,
-        params.availability
+        params.availability,
+        params.photos
       );
     },
     onSuccess: () => {
